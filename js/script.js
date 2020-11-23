@@ -1,75 +1,117 @@
-
 $(document).ready(function() {
-    var i;
-    let cookie = $.cookie('user');
-    if(cookie == null) {
-        $('.register').show();
+
+    if($.cookie('auth') == null) {
+        $('.register_check').css("display", "flex");
         $('.main').hide();
     }
     else {
-        $('.register').hide();
-        $('.main').show();
 
+        let jpoauth = JSON.parse($.cookie('auth'));
+
+        $('.header_login').text(jpoauth.login);
         
-        if(!$.cookie('i') == "") {
-            i = Number($.cookie('i'));
-            
-        }
-        else {
-            i = 0;
-        }
-
-        for (let index = 1; index <= i; index++) {
-            let element = $.cookie(`table${index}`);
-            if(!element == "") {
-                $('.table__items').append(element);
-                element = null;
-            }
-        }
+        $('header').show();
+        $('.main').show();
     }
 
-    $('#regbutton').on('click', function() {
-        let email = $('#exampleInputEmail1').val();
-        $('.register').hide();
-        $.cookie('user', email);
-    })
-
-    $('#log').click(function() {
-        let name = $('#inputname').val();
-        let surName = $('#inputsurname').val();
-        let number = $('#inputnumber').val();
-        let mass = {
-            name: '',
-            surName: '',
-            number: ''
-        };
-        mass.name = name;
-        mass.surName = surName;
-        mass.number = number;
-        i++;
-        let html = $('.table__items').html(`
-        <tr id="a${i}">
-        <th scope="row">${i}</th>
-        <td>${mass.name}</td>
-        <td>${mass.surName}</td>
-        <td>${mass.number}</td>
-        <td><button num_id="${i}" class="deletebtn">Удалить</button></td>
-        </tr>`);
-        let json;
-        for (let key of html) {
-            json = JSON.stringify(key.innerHTML);
+    $('#regbutton').click(function() {
+        let oauth = {
+            login: `${$('#exampleInputEmail1').val()}`,
+            password: `${$('#exampleInputPassword1').val()}`,
+            auth: `${Math.random()}`
         }
-        $.cookie('i', i);
-        $.cookie(`table${i}`, json);
+        let joauth = JSON.stringify(oauth);
+        $.cookie('auth', joauth);
     })
 
+    $('#createbtn').click(function() {
+        if($('.create_table').attr('num_show') == '1'){
+            $('.create_table').hide();
+            $('.create_table').removeAttr('num_show');
+        }
+        else {
+            $('.create_table').show();
+            $('.create_table').attr('num_show', '1');
+        }
+    })
 
     
-    $('.deletebtn').click(function() {
-        let _this = $(this);
-        let num_id = _this.attr("num_id");
-        $(`#a${num_id}`).remove();
-        $.removeCookie(`table${num_id}`);
-    })
-})
+        if($.cookie('i') == null) {
+            let i = 0;
+            $.cookie('i', i);
+        }
+        else {
+            for (let index = 0; index < $.cookie('i'); index++) {
+                let element = JSON.parse($.cookie(`table${index}`));
+                if(element != null){
+                    $('.table__items').append(element);
+                }
+            }
+        }
 
+    
+
+
+    $('#log').click(function() {
+        let i = $.cookie('i')
+        let tablei = Number(i);
+        
+        let odata = {
+            name: `${$('#inputname').val()}`,
+            surName: `${$('#inputsurname').val()}`,
+            number: `${$('#inputnumber').val()}`
+        }
+
+        let tabledata = $('.table__items').attr('table_data', tablei);
+
+        if(tabledata >= '1') {
+            let hs = 
+            `<tr id="items-${tablei}">
+            <th scope="row">${tablei}</th>
+            <td>${odata.name}</td>
+            <td>${odata.surName}</td>
+            <td>${odata.number}</td>
+            <td><input numid="${tablei}" class="btntabledelete btn btn-danger" type="submit" value="Удалить"></td>
+            </tr>`
+            let html1 = $('.table__items').append(`
+                <tr id="items-${tablei}">
+                    <th scope="row">${tablei}</th>
+                    <td>${odata.name}</td>
+                    <td>${odata.surName}</td>
+                    <td>${odata.number}</td>
+                    <td><input numid="${tablei}" class="btntabledelete btn btn-danger" type="submit" value="Удалить"></td>
+                </tr>
+            `)
+            let jhtml = JSON.stringify(hs);
+            $.cookie(`table${tablei++}`, jhtml);
+            $.cookie('i', tablei);
+            console.log(tablei);
+        }
+        else {
+            let html = $('.table__items').html(`
+            <tr id="items-${tablei}">
+            <th scope="row">${tablei}</th>
+            <td>${odata.name}</td>
+            <td>${odata.surName}</td>
+            <td>${odata.number}</td>
+            <td><input numid="${tablei}" class="btntabledelete btn btn-danger" type="submit" value="Удалить"></td>
+            </tr>
+            `)
+            let jhtml = JSON.stringify(html);
+            $.cookie(`table${tablei++}`, jhtml);
+            $.cookie('i', tablei);
+            console.log(tablei);
+        }
+    })
+
+    $('.btntabledelete').click(function() {
+        let cookiei = $.cookie('i');
+        let _this = $(this);
+        let id = _this.attr('numid');
+        $(`#items-${id}`).remove();
+        $.removeCookie(`table${id}`);
+        let deletei = cookiei - 1;
+        cookiei = $.cookie('i', deletei);
+    })
+
+})

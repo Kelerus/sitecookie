@@ -10,12 +10,17 @@
 </head>
 
 <body>
-
-    <section class="register container-md">
+    <header>
+        <div class="profile d-flex justify-content-center align-items-center">
+            <h3 class="header_login"></h3>
+            <p class="header_password"></p>
+        </div>
+    </header>
+    <section class="register register_check container-md">
         <form>
             <div class="form-group">
-              <label for="exampleInputEmail1">Email адрес</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <label for="exampleInputEmail1">Логин</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Пароль</label>
@@ -42,27 +47,32 @@
             <tbody class="table__items">
                 
             </tbody>
-          </table>
-          <button type="button" id="createbtn">Создать</button>
+        </table>
+        <div class="createbtn">
+            <input class="btn btn-primary" type="submit" id="createbtn" value="Создать запись">
+        </div>
+        
+          
+        <section class="container-md create_table">
+            <form onsubmit="return false">
+                <div class="form-group">
+                  <label for="inputname">Ваше имя</label>
+                  <input type="text" class="form-control" id="inputname" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                  <label for="inputsurname">Фамилия</label>
+                  <input type="text" class="form-control" id="inputsurname">
+                </div>
+                <div class="form-group">
+                  <label for="inputnumber">Номер</label>
+                  <input type="text" class="form-control" id="inputnumber">
+                </div>
+                <button type="submit" id="log" class="btn btn-primary">Записать</button>
+              </form>
+        </section>
     </section>
 
-    <section class="container-md">
-        <form onsubmit="return false">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Ваше имя</label>
-              <input type="text" class="form-control" id="inputname" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Фамилия</label>
-              <input type="text" class="form-control" id="inputsurname">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Номер</label>
-              <input type="text" class="form-control" id="inputnumber">
-            </div>
-            <button type="submit" id="log" class="btn btn-primary">Записать</button>
-          </form>
-    </section>
+    
 
     <footer>
         <script src="js/jquery-3.5.1.min.js"></script>

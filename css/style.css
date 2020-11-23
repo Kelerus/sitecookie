@@ -1,7 +1,25 @@
+header {
+    display: none;
+}
+
 .register {
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    
+}
+
+.register_check {
+    display: none;
+}
+
+.createbtn {
+    display: flex;
+    justify-content: center;
+}
+
+.create_table {
+    display: none;
 }
