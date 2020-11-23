@@ -41,15 +41,17 @@ $(document).ready(function() {
             $.cookie('i', i);
         }
         else {
-            for (let index = 0; index < $.cookie('i'); index++) {
-                let element = JSON.parse($.cookie(`table${index}`));
-                if(element != null){
-                    $('.table__items').append(element);
-                }
-            }
+            $.cookie('i')
+            console.log($.cookie('i'))
         }
-
-    
+        
+    for (let index = 0; index < $.cookie('i'); index++) {
+        let element = JSON.parse($.cookie(`table${index}`));
+        if(element != null){
+            $('.table__items').append(element);
+        }
+        
+    }
 
 
     $('#log').click(function() {
