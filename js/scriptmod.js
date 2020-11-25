@@ -57,7 +57,7 @@ $(document).ready(function() {
             });
         }
         catch {
-            console.log('gg');
+            
         }
     }
 
@@ -74,7 +74,7 @@ $(document).ready(function() {
             
         }
         else {
-            
+
             let masscookieid = `table${id}`
             masscookie += `,${masscookieid}`
             $.cookie('masscookie', masscookie);
@@ -110,22 +110,16 @@ $(document).ready(function() {
         let arrmasscookie = masscookie.split(',');
         arrmasscookie.forEach(function(element) {
             if(element == `table${numid}`) {
-                console.log(element);
-                console.log(numid);
+                if(arrmasscookie.length == 1) {
+                    $.removeCookie('masscookie');
+                }
                 let id = $.cookie('id');
                 id = id-1;
                 arrmasscookie.splice(numid, 1);
+                console.log(arrmasscookie.length);
                 $.cookie('id', id);
                 $.cookie('masscookie', arrmasscookie);
-                if(arrmasscookie.length == 1) {
-                    $.removeCookie('masscookie');
-                    $.removeCookie('id');
-                }
-                else if(element != `table${numid}`) {
-                    console.log('ошибка');
-                    $.removeCookie('masscookie');
-                    $.removeCookie('id');
-                }
+                
             }
         });
         $.removeCookie(`table${numid}`);
