@@ -46,12 +46,13 @@ $(document).ready(function() {
         let masscookie = $.cookie('masscookie') 
         let arrmasscookie = masscookie.split(',');
         try{
-            arrmasscookie.forEach(function(element) {
+            arrmasscookie.forEach(function(element, index) {
                 if(element != null) {
-                    
-                    let tablecookie = $.cookie(`${element}`);
-                    let parsetable = JSON.parse(tablecookie);
-                    $('.table__items').append(parsetable);
+                    if(element == arrmasscookie[index]) {
+                        let tablecookie = $.cookie(`${element}`);
+                        let parsetable = JSON.parse(tablecookie);
+                        $('.table__items').append(parsetable);
+                    }
                 }
             });
         }
